@@ -136,17 +136,28 @@ section {
 /* Evita que el layout salte en móviles antes de que cargue el video */
 .slider-card video {
     width: 100%;
-    aspect-ratio: 16/9;
-    object-fit: cover;
+    aspect-ratio: 16 / 9; /* Fuerza a todos los videos a mantener formato panorámico */
+    object-fit: cover;    /* Evita que el video se estire o se deforme */
     border-radius: 12px 12px 0 0;
     border-bottom: 2px solid #9b9bff;
+    background-color: #000; /* Fondo negro por si el video tarda en cargar */
 }
 
 .slider-card p {
     color: #dee2e6;
     font-size: 0.95rem;
+    min-height: 100px; /* Asegura que la tarjeta no encoja si hay poco texto */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.owl-carousel .owl-stage-outer {
+    padding-top: 30px;
+    padding-bottom: 40px;
+    margin-top: -30px;
+    margin-bottom: -40px;
+}
 /* Botones Owl Carousel - Touch Friendly */
 .owl-carousel .owl-nav {
     display: block !important;
