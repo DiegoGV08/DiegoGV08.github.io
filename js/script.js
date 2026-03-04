@@ -1,21 +1,32 @@
 $(document).ready(function () {
-    // Inicializar Owl Carousel
+    // Inicializar Owl Carousel responsivo
     $(".custom-carousel").owlCarousel({
         loop: true,
-        margin: 20,
         nav: true,
         autoplay: true,
         autoplayTimeout: 5000,
         autoplayHoverPause: true,
         center: true,
         navText: [
-            "&#10094;",
-            "&#10095;"
+            "<i class='fas fa-chevron-left'></i>", 
+            "<i class='fas fa-chevron-right'></i>"
         ],
         responsive: {
-            0: { items: 1 },
-            768: { items: 2 },
-            1024: { items: 3 }
+            0: { 
+                items: 1, 
+                margin: 10,
+                stagePadding: 30 // Muestra un borde de la sig. tarjeta en móvil (Mejora UX)
+            },
+            768: { 
+                items: 2, 
+                margin: 20,
+                stagePadding: 0
+            },
+            1024: { 
+                items: 3, 
+                margin: 30,
+                stagePadding: 0
+            }
         }
     });
 
@@ -24,17 +35,15 @@ $(document).ready(function () {
         if (this.hash !== "") {
             event.preventDefault();
             var hash = this.hash;
+            
             // Animar el scroll
             $('html, body').animate({
-                scrollTop: $(hash).offset().top - 56 // Ajuste por la altura del navbar
-            }, 800, function(){
-                // Opcional: Agregar hash a la URL cuando termine el scroll
-                // window.location.hash = hash;
-            });
+                scrollTop: $(hash).offset().top - 55 // Descuento altura del navbar
+            }, 600); // 600ms para que no sea muy lento en móviles
         }
     });
     
-    // Cerrar el menú colapsable de bootstrap en móviles al hacer clic
+    // Auto-colapsar el menú hamburguesa en móviles tras tocar un enlace
     $('.navbar-nav>li>a').on('click', function(){
         $('.navbar-collapse').collapse('hide');
     });
