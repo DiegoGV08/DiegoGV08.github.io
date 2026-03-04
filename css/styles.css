@@ -4,16 +4,17 @@ html {
 
 body {
     font-family: 'Noto Sans HK', sans-serif;
-    background-color: #212529; /* Fondo oscuro principal */
+    background-color: #212529;
     color: #adb5bd;
-    padding-top: 56px; /* Espacio para el navbar fijo */
+    padding-top: 56px;
+    overflow-x: hidden; /* Evita scroll horizontal indeseado en móviles */
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-family: "Saira Extra Condensed", sans-serif;
     text-transform: uppercase;
     font-weight: 700;
-    color: #9b9bff; /* Color acento para títulos */
+    color: #9b9bff;
 }
 
 .text-accent {
@@ -37,10 +38,11 @@ h1, h2, h3, h4, h5, h6 {
     color: #9b9bff !important;
 }
 
-/* Sección de Inicio (Video a pantalla completa) */
+/* Sección de Inicio - Optimizada para dispositivos móviles (100dvh) */
 .hero-section {
     position: relative;
     height: 100vh;
+    height: 100dvh; /* dvh evita saltos por la barra de navegación en Chrome/Safari móvil */
     width: 100%;
     overflow: hidden;
     display: flex;
@@ -53,25 +55,32 @@ h1, h2, h3, h4, h5, h6 {
     position: absolute;
     top: 50%;
     left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    transform: translateX(-50%) translateY(-50%);
-    object-fit: cover;
-    opacity: 0.6; /* Oscurecer un poco para legibilidad */
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    transform: translate(-50%, -50%);
+    object-fit: cover; /* Centra y recorta sin deformar en pantallas verticales */
+    opacity: 0.5;
 }
 
 .hero-content {
     position: relative;
     z-index: 1;
     text-align: center;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.9);
 }
 
-/* Recreación de efecto Parallax con CSS nativo */
+/* Tipografía fluida: se adapta sola al tamaño de pantalla */
+.hero-title {
+    font-size: clamp(3rem, 8vw, 5.5rem);
+}
+.hero-subtitle {
+    font-size: clamp(1.2rem, 3vw, 2rem);
+}
+
+/* Separador Parallax */
 .parallax-divider {
-    min-height: 500px;
+    min-height: clamp(300px, 40vh, 500px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -86,26 +95,32 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .parallax-divider h1 {
-    font-size: 5rem;
+    font-size: clamp(2.5rem, 8vw, 5rem);
     letter-spacing: 2px;
     color: #9b9bff;
     text-shadow: 0px 4px 15px rgba(0,0,0,0.5);
     text-align: center;
+    padding: 0 15px;
 }
 
-/* Carrusel y Tarjetas Oscuras */
+/* Espaciado de Secciones Fluido */
+section {
+    padding-top: clamp(50px, 8vw, 100px);
+    padding-bottom: clamp(50px, 8vw, 100px);
+}
+
+/* Carrusel y Tarjetas */
 .slider {
     margin-bottom: 30px;
     position: relative;
 }
 
 .slider-card {
-    background: #2c3034; /* Fondo oscuro */
-    margin: 30px 15px;
+    background: #2c3034;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    transform: scale(0.9);
-    opacity: 0.5;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transform: scale(0.95);
+    opacity: 0.6;
     transition: all 0.4s ease-in-out;
     overflow: hidden;
     border: 1px solid #3d4246;
@@ -114,14 +129,16 @@ h1, h2, h3, h4, h5, h6 {
 .slider .owl-item.active.center .slider-card {
     transform: scale(1.05);
     opacity: 1;
-    background: #343a40; /* Ligeramente más claro al centrar */
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+    background: #343a40;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
 }
 
+/* Evita que el layout salte en móviles antes de que cargue el video */
 .slider-card video {
     width: 100%;
-    border-radius: 12px 12px 0 0;
+    aspect-ratio: 16/9;
     object-fit: cover;
+    border-radius: 12px 12px 0 0;
     border-bottom: 2px solid #9b9bff;
 }
 
@@ -130,7 +147,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.95rem;
 }
 
-/* Botones de navegación de Owl Carousel */
+/* Botones Owl Carousel - Touch Friendly */
 .owl-carousel .owl-nav {
     display: block !important;
 }
@@ -143,12 +160,12 @@ h1, h2, h3, h4, h5, h6 {
     background: rgba(0,0,0,0.8) !important;
     color: #9b9bff !important;
     border-radius: 50% !important;
-    width: 50px;
-    height: 50px;
+    width: 44px; /* Tamaño mínimo recomendado por Apple/Google para touch */
+    height: 44px;
     display: flex !important;
     align-items: center;
     justify-content: center;
-    font-size: 24px !important;
+    font-size: 20px !important;
     transition: all 0.3s ease;
     z-index: 1000;
     border: 2px solid #9b9bff !important;
@@ -162,19 +179,19 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(-50%) scale(1.1);
 }
 
-.owl-carousel .owl-nav button.owl-prev { left: -15px; }
-.owl-carousel .owl-nav button.owl-next { right: -15px; }
+/* Ubicación adaptable de botones */
+.owl-carousel .owl-nav button.owl-prev { left: -10px; }
+.owl-carousel .owl-nav button.owl-next { right: -10px; }
 
 .owl-dots .owl-dot span {
     background: #6c757d !important;
     transition: background 0.3s;
 }
-
 .owl-dots .owl-dot.active span {
     background: #9b9bff !important;
 }
 
-/* Perfil y Contacto */
+/* Perfil y Botones */
 .img-profile {
     border: 5px solid #343a40;
     box-shadow: 0 10px 20px rgba(0,0,0,0.5);
@@ -198,20 +215,15 @@ h1, h2, h3, h4, h5, h6 {
     color: #fff;
 }
 
-section {
-    padding-top: 80px;
-    padding-bottom: 80px;
-}
-
-/* Ajustes de responsividad en móviles */
+/* Dispositivos Móviles Específicos */
 @media (max-width: 768px) {
-    .parallax-divider h1 {
-        font-size: 3rem;
+    .parallax-divider {
+        background-attachment: scroll; /* El parallax fijo puede dar lag en Safari móvil */
     }
-    .slider-card {
-        margin: 15px 5px;
+    .slider-card p {
+        font-size: 0.85rem;
     }
-    /* Mostrar y ajustar flechas en móviles */
-    .owl-carousel .owl-nav button.owl-prev { left: 0px; width: 40px; height: 40px; font-size: 18px !important; }
-    .owl-carousel .owl-nav button.owl-next { right: 0px; width: 40px; height: 40px; font-size: 18px !important; }
+    /* Mueve las flechas un poco hacia adentro para no salir de la pantalla en móviles */
+    .owl-carousel .owl-nav button.owl-prev { left: 5px; }
+    .owl-carousel .owl-nav button.owl-next { right: 5px; }
 }
