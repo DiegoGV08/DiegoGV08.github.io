@@ -1,62 +1,41 @@
-/*!
-* Start Bootstrap - Resume v7.0.5 (https://startbootstrap.com/theme/resume)
-* Copyright 2013-2022 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-resume/blob/master/LICENSE)
-*/
-//
-// Scripts
-// 
-
-// window.addEventListener('DOMContentLoaded', event => {
-
-//     // Activate Bootstrap scrollspy on the main nav element
-//     const sideNav = document.body.querySelector('#sideNav');
-//     if (sideNav) {
-//         new bootstrap.ScrollSpy(document.body, {
-//             target: '#sideNav',
-//             offset: 74,
-//         });
-//     };
-
-//     // Collapse responsive navbar when toggler is visible
-//     const navbarToggler = document.body.querySelector('.navbar-toggler');
-//     const responsiveNavItems = [].slice.call(
-//         document.querySelectorAll('#navbarResponsive .nav-link')
-//     );
-//     responsiveNavItems.map(function (responsiveNavItem) {
-//         responsiveNavItem.addEventListener('click', () => {
-//             if (window.getComputedStyle(navbarToggler).display !== 'none') {
-//                 navbarToggler.click();
-//             }
-//         });
-//     });
-
-// });
-
-// Owlcarousel
 $(document).ready(function () {
-    $(".owl-carousel").owlCarousel({
+    // Inicializar Owl Carousel
+    $(".custom-carousel").owlCarousel({
         loop: true,
-        margin: 10,
+        margin: 20,
         nav: true,
         autoplay: true,
-        autoplayTimeout: 6000,
+        autoplayTimeout: 5000,
         autoplayHoverPause: true,
         center: true,
         navText: [
-            "<i class='fa fa-angle-left'></i>",
-            "<i class='fa fa-angle-right'></i>"
+            "&#10094;",
+            "&#10095;"
         ],
         responsive: {
-            0: {
-                items: 1
-            },
-            600: {
-                items: 1
-            },
-            1000: {
-                items: 2
-            }
+            0: { items: 1 },
+            768: { items: 2 },
+            1024: { items: 3 }
         }
+    });
+
+    // Smooth scrolling para los enlaces del Navbar
+    $('a.nav-link').on('click', function(event) {
+        if (this.hash !== "") {
+            event.preventDefault();
+            var hash = this.hash;
+            // Animar el scroll
+            $('html, body').animate({
+                scrollTop: $(hash).offset().top - 56 // Ajuste por la altura del navbar
+            }, 800, function(){
+                // Opcional: Agregar hash a la URL cuando termine el scroll
+                // window.location.hash = hash;
+            });
+        }
+    });
+    
+    // Cerrar el menú colapsable de bootstrap en móviles al hacer clic
+    $('.navbar-nav>li>a').on('click', function(){
+        $('.navbar-collapse').collapse('hide');
     });
 });
